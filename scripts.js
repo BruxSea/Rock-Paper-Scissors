@@ -1,35 +1,18 @@
-// creo las variables que van a tener los puntajes de los jugadores (usuario y compu)
+// variables para almacenar los puntajes de los jugadores (usuario y computadora)
 let scoreHuman = 0;
 let scorePc = 0;
 
-// funcion para obtener eleccion de usuario:
-function getHumanChoice(){
-    let userInput = prompt("Please enter rock, paper or scissors: ").toLowerCase();
-    while (userInput !== "rock" && userInput !== "paper" && userInput !== "scissors"){
-        userInput =  prompt("Invalid choice, please enter rock, paper or scissors: ").toLowerCase();
-    }
-    return userInput;
-};
-
-// funcion para que la compu haga su jugada:
+// funcion para obtener la eleccion de la computadora:
 function getComputerChoice(){
-    let randomNumber = Math.floor(Math.random()*3); /* Aqui genero tres posibles numeros random y entero */
-    if (randomNumber === 0){
-        return "rock";
-    } else if (randomNumber === 1){
-        return "paper";
-    } else {
-        return "scissors";
-    }
+    const choices = ['rock', 'paper', 'scissors'];
+    const randomIndex = Math.floor(Math.random() * choices.length); /* Aqui genero tres posibles numeros random y entero */
+    return choices[randomIndex];
 };
 
-// let humanChoice = getHumanChoice();
-// let computerChoice = getComputerChoice();
-
-// funcion para ir sumando los puntajes:   --> para eso tuve que decirle a la pc cuales son las jugadas ganadoras
+// funcion para jugar una ronda y ver quien gana--> para eso tuve que decirle a la pc cuales son las jugadas ganadoras
 function playRound(humanChoice, computerChoice){
     if (humanChoice === computerChoice) {
-        return "It is a Tie!";
+        return "It is a Tie! You can try again";
     } else if ((humanChoice === "rock" && computerChoice === "scissors") ||
         (humanChoice === "paper" && computerChoice === "rock") ||
         (humanChoice === "scissors" && computerChoice === "paper")
@@ -37,33 +20,31 @@ function playRound(humanChoice, computerChoice){
             return `You win! ${humanChoice} beats ${computerChoice}`;
     } else {
         scorePc++;
-        return "Bad luck, you lost. You can try again" ;
+        return `Bad luck, you lost. ${computerChoice} beats ${humanChoice} You can try again` ;
     };
-}
-
-// funcion para jugar diferentes rondas:
-function playGame() {
-    scoreHuman = 0;
-    scorePc = 0;
-    for (let i = 0; i < 3; i++) {
-        let humanChoice = getHumanChoice();
-        let computerChoice = getComputerChoice();
-        console.log(`Round: ${i + 1}`);
-        console.log(`Your choice: ${humanChoice}`);
-        console.log(`Computer choice: ${computerChoice}`);
-        console.log(playRound(humanChoice, computerChoice));
-        console.log(`Your score: ${scoreHuman}`);
-        console.log(`Computer score: ${scorePc}`);
-        console.log("-------------------------------");
-    };
-    if (scoreHuman > scorePc){
-        console.log("Congratulations! YOU WIN the game!!");
-    } else if( scoreHuman < scorePc){
-        console.log("Sorry, You lost the game");
-    } else {
-        console.log("You tied the game.");
-    }
 };
 
+// Función para actualizar el resultado y puntajes en el DOM
+function updateResults(result) {
+    document.getElementById('result').textContent = result;
+    document.getElementById('score').textContent = `Score - You: ${scoreHuman} Computer: ${scorePc}`;
+};
 
-playGame();
+// Usando el DOM y eventos
+document.getElementById('rock').addEventListener('click', function() {
+    let computerChoice = getComputerChoice(); // Obtener la elección de la computadora
+    let result = playRound('rock', computerChoice); // Jugar la ronda y obtener el resultado
+    updateResults(result); // Actualizar el DOM con el resultado y los puntajes
+});
+
+document.getElementById('paper').addEventListener('click', function(){
+    let computerChoice = getComputerChoice();
+    let result = playRound('paper', computerChoice);
+    updateResults(result);
+});
+
+document.getElementById('scissors').addEventListener('click', function(){
+    let computerChoice = getComputerChoice();
+    let result = playRound('scissors', computerChoice);
+    updateResults(result);
+});
