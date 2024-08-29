@@ -30,7 +30,7 @@ function updateResults(result) {
     document.getElementById('score').textContent = `Score - You: ${scoreHuman} Computer: ${scorePc}`;
 };
 
-// Usando el DOM y eventos
+// Usando el DOM y eventos para manejar la eleccion del jugador
 document.getElementById('rock').addEventListener('click', function() {
     let computerChoice = getComputerChoice(); // Obtener la elección de la computadora
     let result = playRound('rock', computerChoice); // Jugar la ronda y obtener el resultado

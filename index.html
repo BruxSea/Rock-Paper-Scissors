@@ -4,15 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock, Paper or Scissors</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Rock, Paper or Scissors</h1>
-    <h2>The game!</h2>
-    <button id="rock">Rock</button>
-    <button id="paper">Paper</button>
-    <button id="scissors">Scissors</button>
-    <div id="result"></div>
-    <div id="score">Score - You: 0 Computer: 0</div>
+    <div class="game-container">
+        <header>
+            <h1>Rock, Paper or Scissors</h1>
+            <h2>The game!</h2>
+        </header>
+        <div class="choices">
+            <p>Make your choice:</p>
+            <div class="buttons">
+                <button id="rock">Rock</button>
+                <button id="paper">Paper</button>
+                <button id="scissors">Scissors</button>
+            </div>
+        </div>
+        <div id="result"></div>
+        <div id="score">
+            <p id="player">You: </p>
+            <p id="computer">The computer: </p>
+        </div>
+    </div>
 
     <script src="scripts.js" defer> </script>
 </body>
